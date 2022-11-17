@@ -3,6 +3,7 @@ using FluentValidation;
 using Integration.Application.Catalog.Dto;
 using Integration.Application.Catalog.Interfaces;
 using Integration.Application.Interfaces;
+using Integration.Application.Models;
 using Integration.Domain.Catalog.Entities;
 using Integration.Infrastructure.Catalog.Persistence;
 using MapsterMapper;
@@ -32,7 +33,7 @@ public class ProductService : IProductService
     public async Task<ProductDto?> GetProductBySkuAsync(string sku) =>
         _mapper.Map<ProductDto>(await _catalogDbContext.Products.FirstOrDefaultAsync(m => m.Sku == sku));
 
-    public Task<IList<ProductDto>> GetProductsAsync(Expression<Func<Product, bool>> filter, int pageIndex, int pageSize)
+    public Task<PaginatedList<ProductDto>> GetProductsAsync(Expression<Func<Product, bool>> filter, int pageIndex, int pageSize)
     {
         throw new NotImplementedException();
     }
