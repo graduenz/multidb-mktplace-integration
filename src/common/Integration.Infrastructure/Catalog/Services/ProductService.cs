@@ -16,7 +16,7 @@ public class ProductService : IProductService
 {
     private const string ProductAlreadyExists = nameof(ProductAlreadyExists);
     private const string ProductDoesNotExist = nameof(ProductDoesNotExist);
-    
+
     private readonly CatalogDbContext _catalogDbContext;
     private readonly IMapper _mapper;
     private readonly IValidator<ProductDto> _validator;
@@ -39,9 +39,18 @@ public class ProductService : IProductService
     public async Task<ProductDto?> GetProductBySkuAsync(string sku) =>
         _mapper.Map<ProductDto>(await _catalogDbContext.Products.FirstOrDefaultAsync(m => m.Sku == sku));
 
-    public Task<PaginatedList<ProductDto>> GetProductsAsync(Expression<Func<Product, bool>> filter, int pageIndex, int pageSize)
+    public async Task<PaginatedList<ProductDto>> GetProductsAsync(Expression<Func<Product, bool>> filter, int pageIndex,
+        int pageSize)
     {
-        throw new NotImplementedException();
+        var query = _catalogDbContext.Products.Where(filter).AsNoTracking();
+        var count = await query.CountAsync();
+        query = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
+        var items = await query
+            .Select(m => _mapper.Map<ProductDto>(m))
+            .ToListAsync();
+
+        return new PaginatedList<ProductDto>(items, count, pageIndex, pageSize);
     }
 
     public async Task AddProductAsync(ProductDto product)
