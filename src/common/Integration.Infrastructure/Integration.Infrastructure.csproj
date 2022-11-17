@@ -7,13 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Catalog\Services" />
       <Folder Include="Customers\Services" />
       <Folder Include="Logistics\Services" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="DotNetCore.CAP" Version="6.2.1" />
+      <PackageReference Include="DotNetCore.CAP.Dashboard" Version="6.2.1" />
+      <PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="6.2.1" />
+      <PackageReference Include="Mapster" Version="7.3.0" />
+      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+      <PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>
