@@ -6,6 +6,4 @@ public class Stock
     public string? Sku { get; set; }
     public string? CenterCode { get; set; }
     public int Quantity { get; set; }
-    
-    public virtual Center Center { get; set; }
 }
