@@ -6,6 +6,11 @@ namespace Integration.Infrastructure.Logistics.Persistence;
 
 public class LogisticsDbContext : DbContext
 {
+    public LogisticsDbContext(DbContextOptions options)
+        : base(options)
+    {
+    }
+    
     public DbSet<Center> Centers { get; set; }
     public DbSet<Stock> Stocks { get; set; }
 

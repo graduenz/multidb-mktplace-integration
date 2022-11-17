@@ -6,6 +6,11 @@ namespace Integration.Infrastructure.Catalog.Persistence;
 
 public class CatalogDbContext : DbContext
 {
+    public CatalogDbContext(DbContextOptions options)
+        : base(options)
+    {
+    }
+    
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
     
